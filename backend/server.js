@@ -4,7 +4,9 @@ const cors = require('cors');
 const app = express();
 const port = 3001; // Choose any port you like
 
-app.use(cors()); // Enable CORS for all routes
+app.use(cors({
+  origin : 'https://vercel.com/onkars-projects-31f7fc56/sportsengg'
+})); // Enable CORS for all routes
 
 app.get('/rss', async (req, res) => {
   const { url } = req.query;
