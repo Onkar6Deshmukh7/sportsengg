@@ -4,7 +4,7 @@ function App() {
   
   return (
     <>
-    <div className=" flex w-screen h-screen flex-col justify-center items-center bg-slate-300">
+    <div className=" flex w-screen min-h-screen flex-col justify-center items-center bg-slate-300">
 
       <header className="w-auto h-20 flex justify-center items-center text-4xl font-extrabold italic"> Sports Central </header>
       

@@ -23,7 +23,13 @@ app.get('/rss', async (req, res) => {
   }
 
   try {
-    const response = await axios.get(url);
+    // Set a custom User-Agent to mimic a browser
+    const response = await axios.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+      }
+    });
+
     res.set('Content-Type', 'application/rss+xml'); // Set the correct content type
     res.send(response.data); // Send back the RSS feed content
   } catch (error) {
