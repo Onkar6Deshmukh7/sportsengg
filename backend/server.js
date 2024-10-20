@@ -10,7 +10,7 @@ app.use(cors({
 }));
 
 app.get('/rss', async (req, res) => {
-  const { url } = req.query;
+  const { url, isMobile } = req.query; // Get isMobile from the query parameters
 
   // Allow only specific URLs (BBC and Sky Sports) to prevent misuse
   const allowedUrls = [
@@ -22,11 +22,15 @@ app.get('/rss', async (req, res) => {
     return res.status(400).send('Invalid RSS feed URL');
   }
 
+  // Set a custom User-Agent based on the device type
+  const userAgent = isMobile 
+    ? 'Mozilla/5.0 (Linux; Android 10; Pixel 3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Mobile Safari/537.36' // Mobile User-Agent
+    : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'; // Desktop User-Agent
+
   try {
-    // Set a custom User-Agent to mimic a browser
     const response = await axios.get(url, {
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+        'User-Agent': userAgent
       }
     });
 
@@ -38,6 +42,7 @@ app.get('/rss', async (req, res) => {
   }
 });
 
+// Start the server
 app.listen(port, () => {
   console.log(`Proxy server running on http://localhost:${port}`);
 });
