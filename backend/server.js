@@ -5,8 +5,9 @@ const app = express();
 const port = 3001; // Choose any port you like
 
 app.use(cors({
-  origin : 'https://vercel.com/onkars-projects-31f7fc56/sportsengg'
-})); // Enable CORS for all routes
+  origin: 'https://sportsengg.vercel.app', // Your Vercel frontend URL
+  credentials: true // Optional: If you need to include credentials (cookies, etc.)
+}));
 
 app.get('/rss', async (req, res) => {
   const { url } = req.query;
