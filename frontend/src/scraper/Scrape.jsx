@@ -11,17 +11,19 @@ function Scrape({ channel }) {
       // Switch between different channels, using the backend proxy server for BBC Sports
       switch (channel) {
         case 'ESPN':
+          // Call the backend proxy to avoid CORS issues
           feedUrl = 'https://www.espn.com/espn/rss/news';
           break;
         case 'BBC Sports':
-          // Call the backend proxy to avoid CORS issues
-          feedUrl = `http://localhost:3001/rss?url=http://feeds.bbci.co.uk/sport/rss.xml`;
+          // feedUrl = `http://localhost:3001/rss?url=http://feeds.bbci.co.uk/sport/rss.xml`;
+          feedUrl = `https://sportsengg-1.onrender.com/render/rss?url=http://feeds.bbci.co.uk/sport/rss.xml`;
           break;
           case 'Sky Sports':
-            feedUrl = `http://localhost:3001/rss?url=https://www.skysports.com/rss/12040`;
+            // feedUrl = `http://localhost:3001/rss?url=https://www.skysports.com/rss/12040`;
+            feedUrl = `https://sportsengg-1.onrender.com/render/rss?url=https://www.skysports.com/rss/12040`;
             break;          
-        default:
-          feedUrl = 'https://www.espn.com/espn/rss/news'; // Default to ESPN
+        // default:
+        //   feedUrl = 'https://www.espn.com/espn/rss/news';
       }
   
       try {

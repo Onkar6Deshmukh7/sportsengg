@@ -1,12 +1,13 @@
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
+
 const app = express();
-const port = 3001; // Choose any port you like
+const port = 3001;
 
 app.use(cors({
-  origin: 'https://sportsengg.vercel.app', // Your Vercel frontend URL
-  credentials: true // Optional: If you need to include credentials (cookies, etc.)
+  origin: ['https://sportsengg.vercel.app', 'http://localhost:5173'], // Allow both production and local URLs
+  credentials: true
 }));
 
 app.get('/rss', async (req, res) => {
