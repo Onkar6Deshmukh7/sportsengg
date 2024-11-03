@@ -46,24 +46,25 @@ function Scrape({ channel }) {
 
   return (
     <div className='w-auto h-auto flex flex-col justify-center items-center m-2'>
-      {/* <header className='w-screen text-3xl italic font-bold flex justify-center items-center absolute top-0'>
-        Sports Central
-      </header> */}
 
-      <div id='channels_wrapper' className='w-auto h-96'>
-        <div id='channel_card' className='w-72 h-96 border rounded-lg overflow-y-auto'>
-          <span className='w-full flex justify-center items-center h-auto underline text-xl italic'>
-            {channel}
+      <div id='channels_wrapper' className='w-auto h-96 border-2 rounded-md border-yellow-500'>
+
+          <span className='w-full flex justify-center items-center h-12 underline'>
+             <p className='italic underline text-xl text-red-600 font-extrabold'>
+                {channel} 
+            </p>
           </span>
 
+        <div id='channel_card' className='w-72 h-80 rounded-lg overflow-y-auto'>
           {headlines.map((headline, index) => (
             <li className='list-none m-2' key={index}>
-              <a href={headline.link} target="_blank" rel="noopener noreferrer">
+              <a href={headline.link} target="_blank" rel="noopener noreferrer" className='italic'>
                 {headline.title}
               </a>
             </li>
           ))}
         </div>
+
       </div>
     </div>
   );
