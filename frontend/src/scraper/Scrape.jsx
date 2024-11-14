@@ -7,25 +7,21 @@ function Scrape({ channel }) {
   useEffect(() => {
     const fetchHeadlines = async () => {
       let feedUrl = '';
-  
-      // Switch between different channels, using the backend proxy server for BBC Sports
+
       switch (channel) {
         case 'ESPN':
-          // Call the backend proxy to avoid CORS issues
           feedUrl = 'https://www.espn.com/espn/rss/news';
           break;
         case 'BBC Sports':
-          // feedUrl = `http://localhost:3001/rss?url=http://feeds.bbci.co.uk/sport/rss.xml`;
           feedUrl = `https://sportsengg-1.onrender.com/rss?url=http://feeds.bbci.co.uk/sport/rss.xml`;
           break;
-          case 'Sky Sports':
-            // feedUrl = `http://localhost:3001/rss?url=https://www.skysports.com/rss/12040`;
-            feedUrl = `https://sportsengg-1.onrender.com/rss?url=https://www.skysports.com/rss/12040`;
-            break;          
-        // default:
-        //   feedUrl = 'https://www.espn.com/espn/rss/news';
+        case 'Sky Sports':
+          feedUrl = `https://sportsengg-1.onrender.com/rss?url=https://www.skysports.com/rss/12040`;
+          break;
+        default:
+          feedUrl = 'https://www.espn.com/espn/rss/news';
       }
-  
+
       try {
         const response = await axios.get(feedUrl);
         const parser = new DOMParser();
@@ -39,32 +35,37 @@ function Scrape({ channel }) {
         console.error('Error fetching headlines:', error);
       }
     };
-  
+
     fetchHeadlines();
   }, [channel]);
-  
 
   return (
-    <div className='w-auto h-auto flex flex-col justify-center items-center m-2'>
-
-      <div id='channels_wrapper' className='w-auto h-96 border-2 rounded-md border-yellow-500'>
-
-          <span className='w-full flex justify-center items-center h-12 underline'>
-             <p className='italic underline text-xl text-red-600 font-extrabold'>
-                {channel} 
-            </p>
-          </span>
-
-        <div id='channel_card' className='w-72 h-80 rounded-lg overflow-y-auto'>
-          {headlines.map((headline, index) => (
-            <li className='list-none m-2' key={index}>
-              <a href={headline.link} target="_blank" rel="noopener noreferrer" className='italic'>
-                {headline.title}
-              </a>
-            </li>
-          ))}
+    <div className="w-full h-auto flex flex-col justify-center items-center p-4 bg-gray-100">
+      <div className="w-full max-w-4xl bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="bg-yellow-500 text-white p-4 text-center">
+          <h2 className="text-2xl font-extrabold">{channel} Headlines</h2>
         </div>
-
+        <div className="p-4 space-y-4">
+          {headlines.length > 0 ? (
+            headlines.map((headline, index) => (
+              <div
+                key={index}
+                className="border-b border-gray-300 py-2 px-3 rounded-lg hover:bg-gray-50 transition duration-300"
+              >
+                <a
+                  href={headline.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-lg font-semibold text-blue-600 hover:text-blue-800"
+                >
+                  {headline.title}
+                </a>
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-gray-500">No headlines available at the moment.</p>
+          )}
+        </div>
       </div>
     </div>
   );
